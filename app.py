@@ -1,8 +1,9 @@
-from flask import Flask
+from flask import Flask,request
 
 app = Flask(__name__)
 
 from flask import jsonify
+import requests
 # Sample large JSON data for API 1
 large_json1 = {
     "message": "Welcome to API 1",
@@ -66,9 +67,60 @@ def api2():
 def api3():
     return jsonify(large_json3)
 
-@app.route("/")
+# @app.route("/")
+# def home():
+#     #return jsonify(large_json3)
+#     data = request.get_json('https://api.coindesk.com/v1/bpi/currentprice.json')
+#     return data
+
+# @app.route("/")
+# def home():
+#     # return jsonify(large_json3)
+#     # data = request.get_json('https://api.coindesk.com/v1/bpi/currentprice.json')
+#     # return data
+#     data = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+
+#     return jsonify(str(data.json()))
+
+# @app.route("/query_example")
+# def home():
+#     try:
+#         client_name = request.args.get('client_name')
+#         if client_name == "tata":
+#             response = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+#         elif client_name == "usa":
+#             response = requests.get('https://datausa.io/api/data?drilldowns=Nation&measures=Population',verify = False)
+#         elif client_name == "fake_user":
+#             response = requests.get('https://randomuser.me/api/',verify = False)
+#         elif client_name == "usa_universities":
+#             response = requests.get('http://universities.hipolabs.com/search?country=United+States',verify = False)
+#         data = response.json()
+
+#         return jsonify(data)
+#     except requests.RequestException as e:
+#         return jsonify({"error": f"Request error: {str(e)}"}), 500
+CLIENT_APIS = {
+    "tata": "https://api.coindesk.com/v1/bpi/currentprice.json",
+    "usa": "https://datausa.io/api/data?drilldowns=Nation&measures=Population",
+    "fake_user": "https://randomuser.me/api/",
+    "usa_universities": "http://universities.hipolabs.com/search?country=United+States",
+}
+
+@app.route("/query_example")
 def home():
-    return jsonify(large_json3)
+    try:
+        client_name = request.args.get("client_name")
+        if client_name not in CLIENT_APIS:
+            return jsonify({"error": "Invalid client name"}), 400
+
+        api_url = CLIENT_APIS.get(client_name)
+        response = requests.get(api_url, verify=False)
+
+        data = response.json()
+        
+        return jsonify(data)
+    except requests.RequestException as e:
+        return jsonify({"error": f"Request error: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run()
