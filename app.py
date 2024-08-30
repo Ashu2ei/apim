@@ -67,11 +67,11 @@ def api2():
 def api3():
     return jsonify(large_json3)
 
-# @app.route("/")
-# def home():
-#     #return jsonify(large_json3)
-#     data = request.get_json('https://api.coindesk.com/v1/bpi/currentprice.json')
-#     return data
+@app.route("/app")
+def home():
+    #return jsonify(large_json3)
+    data = request.get_json('https://api.coindesk.com/v1/bpi/currentprice.json')
+    return jsonify(data)
 
 # @app.route("/")
 # def home():
@@ -106,21 +106,21 @@ CLIENT_APIS = {
     "usa_universities": "http://universities.hipolabs.com/search?country=United+States",
 }
 
-@app.route("/query_example")
-def home():
-    try:
-        client_name = request.args.get("client_name")
-        if client_name not in CLIENT_APIS:
-            return jsonify({"error": "Invalid client name"}), 400
+# @app.route("/query_example")
+# def home():
+#     try:
+#         client_name = request.args.get("client_name")
+#         if client_name not in CLIENT_APIS:
+#             return jsonify({"error": "Invalid client name"}), 400
 
-        api_url = CLIENT_APIS.get(client_name)
-        response = requests.get(api_url, verify=False)
+#         api_url = CLIENT_APIS.get(client_name)
+#         response = requests.get(api_url, verify=False)
 
-        data = response.json()
+#         data = response.json()
         
-        return jsonify(data)
-    except requests.RequestException as e:
-        return jsonify({"error": f"Request error: {str(e)}"}), 500
+#         return jsonify(data)
+#     except requests.RequestException as e:
+#         return jsonify({"error": f"Request error: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run()
