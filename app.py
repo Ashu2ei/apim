@@ -61,10 +61,18 @@ def api1():
 
 @app.route("/api2")
 def api2():
-    data = request.data 
-    bearer =request.headers.get('Authorization').split()[1]
-    # print(bearer)
-    return data
+    try:
+        # Get the data from the request
+        data = request.data.decode("utf-8")
+        
+        # Get the bearer token from the Authorization header
+        bearer = request.headers.get("Authorization").split()[1]
+        
+        # Process the data (you can modify this part based on your requirements)
+        # For now, we'll just return the received data
+        return data
+    except Exception as e:
+        return str(e), 500
     
 @app.route("/api3")
 def api3():
