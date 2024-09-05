@@ -61,8 +61,11 @@ def api1():
 
 @app.route("/api2")
 def api2():
-    return jsonify(large_json2)
-
+    data = request.data 
+    bearer =request.headers.get('Authorization').split()[1]
+    # print(bearer)
+    return data
+    
 @app.route("/api3")
 def api3():
     return jsonify(large_json3)
@@ -70,6 +73,8 @@ def api3():
 @app.route("/app")
 def home():
     #return jsonify(large_json3)
+    header = request.headers.get("Authorization")
+    print(header)
     data = request.get_json('https://api.coindesk.com/v1/bpi/currentprice.json')
     return jsonify(data)
 
@@ -124,3 +129,8 @@ CLIENT_APIS = {
 
 if __name__ == "__main__":
     app.run()
+
+
+
+##################
+
