@@ -76,7 +76,7 @@ def api2():
     
 
 @app.route('/')
-def home():
+def home2():
     return "Welcome to the Flask App!"
 
 @app.route("/api3")
