@@ -3,6 +3,15 @@ from flask import Flask,request
 app = Flask(__name__)
 
 from flask import jsonify
+import logging
+import os
+# Ensure the logs directory exists
+if not os.path.exists('logs'):
+    os.makedirs('logs')
+
+# Configure logging
+logging.basicConfig(filename='logs/app.log', level=logging.INFO,
+                    format='%(asctime)s %(levelname)s %(name)s %(message)s')
 import requests
 # Sample large JSON data for API 1
 large_json1 = {
@@ -90,6 +99,28 @@ def home():
     print(header)
     data = request.get_json('https://api.coindesk.com/v1/bpi/currentprice.json')
     return jsonify(data)
+
+
+@app.route('/log', methods=['POST'])
+def log_message():
+    data = request.json
+    message = data.get('message')
+    level = data.get('level', 'info').upper()
+
+    if level == 'DEBUG':
+        app.logger.debug(message)
+    elif level == 'INFO':
+        app.logger.info(message)
+    elif level == 'WARNING':
+        app.logger.warning(message)
+    elif level == 'ERROR':
+        app.logger.error(message)
+    elif level == 'CRITICAL':
+        app.logger.critical(message)
+    else:
+        return jsonify({"error": "Invalid log level"}), 400
+
+    return jsonify({"status": "Logged successfully"}), 200
 
 # @app.route("/")
 # def home():
