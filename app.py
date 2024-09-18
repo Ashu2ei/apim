@@ -58,6 +58,7 @@ large_json3 = {
 
 @app.route("/api1")
 def api1():
+    print("hello data is getting printed")
     return jsonify(large_json1)
 
 @app.route("/api2")
