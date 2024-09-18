@@ -69,8 +69,8 @@ logger.addHandler(console_handler)
 def api1():
     print("hello data is getting printed")
     logger.info("API1 endpoint called. Hello, data is getting printed.")
-    # logger.debug("This is a debug message.")  # Add more log messages as needed
-    # logger.warning("Warning: Something might need attention.")
+    logger.debug("This is a debug message.")  # Add more log messages as needed
+    logger.warning("Warning: Something might need attention.")
     return jsonify(large_json1)
 
 @app.route("/api2")
