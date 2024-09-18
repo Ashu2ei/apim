@@ -65,7 +65,7 @@ def api2():
     try:
         # Get the data from the request
         data = request.data.decode("utf-8")
-        
+        print("hello data is getting printed")
         # Get the bearer token from the Authorization header
         bearer = request.headers.get("Authorization").split()[1]
         
