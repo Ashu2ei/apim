@@ -136,14 +136,14 @@ container_name = "logs"
 blob_name = "api_call_logs.log"
 
 # Create a BlobServiceClient
-blob_service_client = BlobServiceClient.from_connection_string("DefaultEndpointsProtocol=https;AccountName=log3;AccountKey=OLRaYDB2XHAUlLRi+WN0spfxt2VRjQXBgRQHsneIUmjU+h+DPPzjRfjxEapDTRpJYZ44oCe1Pqvu+AStlXLbkw==;EndpointSuffix=core.windows.net")
-container_client = blob_service_client.get_container_client(container_name)
+# blob_service_client = BlobServiceClient.from_connection_string("hello")
+# container_client = blob_service_client.get_container_client(container_name)
 
-# Ensure the container exists
-try:
-    container_client.create_container()
-except Exception as e:
-    pass  # Container already exists
+# # Ensure the container exists
+# try:
+#     container_client.create_container()
+# except Exception as e:
+#     pass  # Container already exists
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 # Create a local log file
 log_file = "api_call_logs.log"
