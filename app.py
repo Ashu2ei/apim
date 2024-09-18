@@ -174,7 +174,7 @@ def log_message():
         return jsonify({"error": "Invalid log level"}), 400
 
     # Upload the log file to Azure Blob Storage
-    blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
+    #blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
     # with open(log_file, "rb") as data:
     #     blob_client.upload_blob(data, overwrite=True)
 
