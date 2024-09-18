@@ -158,7 +158,7 @@ def log_message():
     message = data.get('message')
     level = data.get('level', 'info').upper()
 
-    app.logger.info(f"API call with message: {message} and level: {level}")
+    app.logger.info(f"API call with message: {message} and level is: {level}")
     
     if level == 'DEBUG':
         app.logger.debug(message)
