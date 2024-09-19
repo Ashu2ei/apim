@@ -63,14 +63,15 @@ import logging
 # formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 # console_handler.setFormatter(formatter)
 # logger.addHandler(console_handler)
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 @app.route("/api1")
 def api1():
     print("hello data is getting printed")
     logger.info("API1 endpoint called. Hello, data is getting printed.")
-    # logger.debug("This is a debug message.")  # Add more log messages as needed
-    # logger.warning("Warning: Something might need attention.")
+    logger.debug("This is a debug message.")  # Add more log messages as needed
+    logger.warning("Warning: Something might need attention.")
     return jsonify(large_json1)
 
 @app.route("/api2")

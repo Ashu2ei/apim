@@ -6,8 +6,8 @@ from flask import jsonify
 import logging
 import os
 # Ensure the logs directory exists
-# if not os.path.exists('logs'):
-#     os.makedirs('logs')
+if not os.path.exists('logs'):
+    os.makedirs('logs')
 
 # Configure logging
 # logging.basicConfig(filename='logs/app.log', level=logging.INFO,
