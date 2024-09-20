@@ -64,8 +64,14 @@ import logging
 # console_handler.setFormatter(formatter)
 # logger.addHandler(console_handler)
 
+# logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
+# logger = logging.getLogger(__name__)
+logger = logging.getLogger('ashutosh')
+logger.setLevel(logging.INFO)
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
+sh = logging.StreamHandler()
+sh.setLevel(logging.DEBUG)
+logger.addHandler(sh)
 @app.route("/api1")
 def api1():
     print("hello data is getting printed")
