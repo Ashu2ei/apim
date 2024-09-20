@@ -66,21 +66,18 @@ import logging
 
 # logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 # logger = logging.getLogger(__name__)
-# logger = logging.getLogger('ashutosh')
-# logger.setLevel(logging.INFO)  # Use INFO level here
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
-# sh = logging.StreamHandler()
-# sh.setLevel(logging.INFO)
-# logger.addHandler(sh)
+logger = logging.getLogger('ashutosh')
+logger.setLevel(logging.INFO)  # Use INFO level here
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+sh = logging.StreamHandler()
+sh.setLevel(logging.INFO)
+logger.addHandler(sh)
 @app.route("/api1")
 def api1():
     print("hello data is getting printed")
-    print(dir(app.logger))
-    app.logger.info("From route Handler ---->")
-    app.logger.error("From route Handler ---->")
-    # logger.info("API1 endpoint called. Hello, data is getting printed.")
-    # logger.debug("This is a debug message.")  # Add more log messages as needed
-    # logger.warning("Warning: Something might need attention.")
+    logger.info("API1 endpoint called. Hello, data is getting printed.")
+    logger.debug("This is a debug message.")  # Add more log messages as needed
+    logger.warning("Warning: Something might need attention.")
     return jsonify(large_json1)
 
 @app.route("/api2")
