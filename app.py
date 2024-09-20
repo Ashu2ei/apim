@@ -58,14 +58,51 @@ large_json3 = {
 import logging
 # logger = logging.getLogger()
 # logger.setLevel(logging.INFO)
-# console_handler = logging.StreamHandler()
+console_handler = logging.StreamHandler()
 # console_handler.setFormatter(logging.INFO)
 # formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 # console_handler.setFormatter(formatter)
 # logger.addHandler(console_handler)
 
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
+import logging
+import sys
+class StreamToLogger(object):
+    def __init__(self, logger, log_level=logging.INFO):
+        self.logger = logger
+        self.log_level = log_level
+        self.linebuf = ''
+    def write(self, buf):
+        for line in buf.rstrip().splitlines():
+            self.logger.log(self.log_level, line)
+    
+    def flush(self):
+        pass
+# Create a custom logger
+logger = logging.getLogger("customLogger")
+logger.setLevel(logging.INFO)
+
+# Create a console handler
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.setLevel(logging.INFO)
+
+# Create a formatter
+formatter = logging.Formatter('%(asctime)s - %(message)s')
+console_handler.setFormatter(formatter)
+
+# Remove all other handlers to avoid duplicate logs
+logger.handlers = []
+logger.addHandler(console_handler)
+
+# Redirect stdout and stderr to the custom logger
+sys.stdout = StreamToLogger(logger, logging.INFO)
+sys.stderr = StreamToLogger(logger, logging.ERROR)
+
+# Example usage
+print("This is a print statement")  # Now captured by the logger
+logger.info("API endpoint is working")  # Custom log
+
+# logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
+# logger = logging.getLogger(__name__)
 @app.route("/api1")
 def api1():
     print("hello data is getting printed")
