@@ -87,29 +87,30 @@ import logging
 #####################
 
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-                    datefmt='%m-%d %H:%M',)
-# define a Handler which writes INFO messages or higher to the sys.stderr
-console = logging.StreamHandler()
-console.setLevel(logging.INFO)
-# set a format which is simpler for console use
-formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
-# tell the handler to use this format
-console.setFormatter(formatter)
-# add the handler to the root logger
-logging.getLogger('').addHandler(console)
+# Initialize the logger
+logger = logging.getLogger('ashutosh')
+logger.setLevel(logging.INFO)  # Set the log level to INFO
+
+# Set the stream_handler to print the logs in the terminal
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.INFO)
+stream_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+logger.addHandler(stream_handler)
 
 # Your existing /api1 route
 @app.route("/api1")
 def api1():
     try:
+        # Your logic here
         print("hello data is getting printed")
-        logging.info("API1 endpoint called. Hello, data is getting printed.")
+        logger.info("API1 endpoint called. Hello, data is getting printed.")
+        # ...
+        # If an error occurs:
+        # logger.error("An error occurred:", error=your_error_object, tb=True, exc_type=ExceptionConstants.Type.DEFAULT)
         return jsonify(large_json1)
     except Exception as e:
         # Log the error and raise an exception (if needed)
-        logging.error("An error occurred:")
+        logger.error("An error occurred:")
 ################################################################
 @app.route("/api2")
 def api2():
