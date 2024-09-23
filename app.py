@@ -90,16 +90,20 @@ log_level, format, datefmt = logging.INFO, '%(asctime)s - %(levelname)s - %(mess
 import os
 # Create the log directory if it does not exist
 
-# Set the file_handler to save the logs in a file
+
 # file_handler = RotatingFileHandler("new.log", mode='a', maxBytes=5*1024*1024, backupCount=1, encoding=None, delay=0)
 # # Set the log level and format
 # file_handler.setLevel(log_level)
 # file_handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
 
-logger = logging.getLogger(__name__)
-logger.setLevel(log_level)
-#logger.addHandler(file_handler)
+# logger = logging.getLogger(__name__)
+# logger.setLevel(log_level)
+# logger.addHandler(file_handler)
 
+
+logger = logging.getLogger('ashutosh')
+logger.setLevel(logging.INFO)  # Use INFO level here
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 stream_handler = logging.StreamHandler()
 
 # Set the log level and format
