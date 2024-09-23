@@ -85,16 +85,27 @@ import logging
 #     return jsonify(large_json1)
 
 #####################
+from logging.handlers import RotatingFileHandler
+log_level, format, datefmt = logging.INFO, '%(asctime)s - %(levelname)s - %(message)s', '%d-%b-%Y %H:%M:%S %p'
+import os
+# Create the log directory if it does not exist
 
+# Set the file_handler to save the logs in a file
+file_handler = RotatingFileHandler("new.log", mode='a', maxBytes=5*1024*1024, backupCount=1, encoding=None, delay=0)
+# Set the log level and format
+file_handler.setLevel(log_level)
+file_handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
 
-# Initialize the logger
-logger = logging.getLogger('ashutosh')
-logger.setLevel(logging.INFO)  # Set the log level to INFO
+logger = logging.getLogger(__name__)
+logger.setLevel(log_level)
+logger.addHandler(file_handler)
 
-# Set the stream_handler to print the logs in the terminal
 stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.INFO)
-stream_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+
+# Set the log level and format
+stream_handler.setLevel(logging.DEBUG)
+stream_handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
+
 logger.addHandler(stream_handler)
 
 # Your existing /api1 route
