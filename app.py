@@ -68,22 +68,39 @@ import logging
 # logger = logging.getLogger(__name__)
 
 ############################
-logger = logging.getLogger('ashutosh')
-logger.setLevel(logging.INFO)  # Use INFO level here
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-sh = logging.StreamHandler()
-sh.setLevel(logging.INFO)
-logger.addHandler(sh)
+# logger = logging.getLogger('ashutosh')
+# logger.setLevel(logging.INFO)  # Use INFO level here
+# logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+# sh = logging.StreamHandler()
+# sh.setLevel(logging.INFO)
+# logger.addHandler(sh)
 ####################################
 
+# @app.route("/api1")
+# def api1():
+#     print("hello data is getting printed")
+#     logger.info("API1 endpoint called. Hello, data is getting printed.")
+#     logger.debug("This is a debug message.")  # Add more log messages as needed
+#     logger.warning("Warning: Something might need attention.")
+#     return jsonify(large_json1)
+
+#####################
+
+
+logger = logging.getLogger('ashutosh')
+logger.setLevel(logging.INFO)  # Set the log level to INFO
+
+# Your existing /api1 route
 @app.route("/api1")
 def api1():
-    print("hello data is getting printed")
-    logger.info("API1 endpoint called. Hello, data is getting printed.")
-    logger.debug("This is a debug message.")  # Add more log messages as needed
-    logger.warning("Warning: Something might need attention.")
-    return jsonify(large_json1)
-
+    try:
+        print("hello data is getting printed")
+        logger.info("API1 endpoint called. Hello, data is getting printed.")
+        return jsonify(large_json1)
+    except Exception as e:
+        # Log the error and raise an exception (if needed)
+        logger.error("An error occurred:")
+################################################################
 @app.route("/api2")
 def api2():
     try:
