@@ -66,12 +66,26 @@ import logging
 
 # logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 # logger = logging.getLogger(__name__)
+
+############################
 logger = logging.getLogger('ashutosh')
 logger.setLevel(logging.INFO)  # Use INFO level here
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 sh = logging.StreamHandler()
 sh.setLevel(logging.INFO)
 logger.addHandler(sh)
+####################################
+from logging.handlers import RotatingFileHandler
+logger = logging.getLogger("name")
+handler = RotatingFileHandler('app_new.log', maxBytes=1000000, backupCount=3)
+handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.DEBUG)
+
 @app.route("/api1")
 def api1():
     print("hello data is getting printed")
