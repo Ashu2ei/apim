@@ -104,14 +104,14 @@ import os
 #logger = logging.getLogger('ashutosh')
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)  # Use INFO level here
-#logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 stream_handler = logging.StreamHandler()
 
 # Set the log level and format
 stream_handler.setLevel(logging.INFO)
 stream_handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
 
-logger.addHandler(stream_handler)
+#logger.addHandler(stream_handler)
 
 # Your existing /api1 route
 @app.route("/api1")
