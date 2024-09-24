@@ -114,13 +114,13 @@ stream_handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
 #logger.addHandler(stream_handler)
 
 # Your existing /api1 route
-@app.route("/api1")
-def api1():
-    logger.info("API1 endpoint called. Hello, data is getting printed.")
-    logger.debug("Debugigng is ON")
-    logger.warning("warning is on")
-    logger.error("something is wrong")
-    return jsonify(large_json1)
+# @app.route("/api1")
+# def api1():
+#     logger.info("API1 endpoint called. Hello, data is getting printed.")
+#     logger.debug("Debugigng is ON")
+#     logger.warning("warning is on")
+#     logger.error("something is wrong")
+#     return jsonify(large_json1)
 ################################################################
 @app.route("/api2")
 def api2():
