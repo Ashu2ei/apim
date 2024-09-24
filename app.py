@@ -155,13 +155,21 @@ def api3():
 import logging
 from flask import Flask
 app = Flask(__name__)
-if __name__ != '__main__':
-    gunicorn_logger = logging.getLogger('gunicorn.error')
-    app.logger.handlers = gunicorn_logger.handlers
-    app.logger.setLevel(gunicorn_logger.level)
-else:
-    logging.basicConfig(level=logging.DEBUG)
-    app.logger.setLevel(logging.DEBUG)
+# if __name__ != '__main__':
+#     gunicorn_logger = logging.getLogger('gunicorn.error')
+#     app.logger.handlers = gunicorn_logger.handlers
+#     app.logger.setLevel(gunicorn_logger.level)
+# else:
+#     logging.basicConfig(level=logging.DEBUG)
+#     app.logger.setLevel(logging.DEBUG)
+import logging
+LOG_FORMATTER = logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s")
+handler = logging.StreamHandler()
+handler.setFormatter(LOG_FORMATTER)
+logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+logger.propagate = False
 @app.route("/api1")
 def hello():
     app.logger.info('Hello world log entry')
