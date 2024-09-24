@@ -174,17 +174,25 @@ else:
 #  logger.propagate= False
 
 ########
-@app.route("/api1")
-def hello():
-    app.logger.info('Hello world log entry')
-    app.logger.debug('it is a debug message')
-    app.logger.error('it is a error message')
-    app.logger.warning('it is a warning message')
-    return jsonify(large_json1)
+
 
 from dotenv import load_dotenv
 load_dotenv()
 import pymongo
+@app.route("/api1")
+def hello():
+    # app.logger.info('Hello world log entry')
+    # app.logger.debug('it is a debug message')
+    # app.logger.error('it is a error message')
+    # app.logger.warning('it is a warning message')
+    # return jsonify(large_json1)
+    CONNECTION_STRING  = os.environ.get("MONGODB_CONNECTION_ENDPOINT")
+    client = pymongo.MongoClient(CONNECTION_STRING)
+    database = client.get_database("Testing")
+    collection =  database.get_collection("test_table")
+    all_documents = list(collection.find())
+    return jsonify(str(all_documents))
+
 @app.route("/cosmos")
 def hello_cosmos():
     CONNECTION_STRING  = os.environ.get("MONGODB_CONNECTION_ENDPOINT")
