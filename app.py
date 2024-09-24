@@ -147,5 +147,24 @@ def api3():
     return jsonify(large_json3)
 
 
+# if __name__ == "__main__":
+#     app.run()
+
+
+
+import logging
+from flask import Flask
+app = Flask(__name__)
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+else:
+    logging.basicConfig(level=logging.INFO)
+    app.logger.setLevel(logging.INFO)
+@app.route("/api1")
+def hello():
+    app.logger.info('Hello world log entry')
+    return jsonify(large_json1)
 if __name__ == "__main__":
     app.run()
