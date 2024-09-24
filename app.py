@@ -114,12 +114,10 @@ stream_handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
 #logger.addHandler(stream_handler)
 
 # Your existing /api1 route
-
-logger = logging.getLogger(__name__)
-logging.basicConfig(format='Custom Logs: %(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 @app.route("/api1")
 def api1():
     logger.info("API1 endpoint called. Hello, data is getting printed.")
+    logger.debug("Debugigng is ON")
     logger.warning("warning is on")
     logger.error("something is wrong")
     return jsonify(large_json1)
@@ -149,27 +147,27 @@ def api3():
     return jsonify(large_json3)
 
 
-if __name__ == "__main__":
-    app.run()
-
-
-
-# import logging
-# from flask import Flask
-# app = Flask(__name__)
-# if __name__ != '__main__':
-#     gunicorn_logger = logging.getLogger('gunicorn.error')
-#     app.logger.handlers = gunicorn_logger.handlers
-#     app.logger.setLevel(gunicorn_logger.level)
-# else:
-#     logging.basicConfig(level=logging.DEBUG)
-#     app.logger.setLevel(logging.DEBUG)
-# @app.route("/api1")
-# def hello():
-#     app.logger.info('Hello world log entry')
-#     app.logger.debug('it is a debug message')
-#     app.logger.error('it is a error message')
-#     app.logger.warning('it is a warning message')
-#     return jsonify(large_json1)
 # if __name__ == "__main__":
 #     app.run()
+
+
+
+import logging
+from flask import Flask
+app = Flask(__name__)
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.info')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+else:
+    logging.basicConfig(level=logging.DEBUG)
+    app.logger.setLevel(logging.DEBUG)
+@app.route("/api1")
+def hello():
+    app.logger.info('Hello world log entry')
+    app.logger.debug('it is a debug message')
+    app.logger.error('it is a error message')
+    app.logger.warning('it is a warning message')
+    return jsonify(large_json1)
+if __name__ == "__main__":
+    app.run()
