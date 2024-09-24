@@ -151,18 +151,20 @@ def api3():
 #     app.run()
 
 
+######################### WORKING $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+# import logging
+# from flask import Flask
+# app = Flask(__name__)
+# if __name__ != '__main__':
+#     gunicorn_logger = logging.getLogger('gunicorn.error')
+#     app.logger.handlers = gunicorn_logger.handlers
+#     app.logger.setLevel(gunicorn_logger.level)
+# else:
+#     logging.basicConfig(level=logging.DEBUG)
+#     app.logger.setLevel(logging.DEBUG)
 
-import logging
-from flask import Flask
-app = Flask(__name__)
-if __name__ != '__main__':
-    gunicorn_logger = logging.getLogger('gunicorn.error')
-    app.logger.handlers = gunicorn_logger.handlers
-    app.logger.setLevel(gunicorn_logger.level)
-else:
-    logging.basicConfig(level=logging.DEBUG)
-    app.logger.setLevel(logging.DEBUG)
 
+########################################################33
 ####
 # import logging
 # LOG_FORMATTER = logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s")
