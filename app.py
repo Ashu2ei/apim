@@ -160,11 +160,14 @@ if __name__ != '__main__':
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
 else:
-    logging.basicConfig(level=logging.INFO)
-    app.logger.setLevel(logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
+    app.logger.setLevel(logging.DEBUG)
 @app.route("/api1")
 def hello():
     app.logger.info('Hello world log entry')
+    app.logger.debug('it is a debug message')
+    app.logger.error('it is a error message')
+    app.logger.warning('it is a warning message')
     return jsonify(large_json1)
 if __name__ == "__main__":
     app.run()
