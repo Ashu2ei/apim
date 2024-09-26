@@ -188,7 +188,7 @@ def hello():
     # app.logger.error('it is a error message')
     # app.logger.warning('it is a warning message')
     # return jsonify(large_json1)
-    CONNECTION_STRING  = os.environ.get("MONGO_CONNECTION")
+    CONNECTION_STRING  = os.environ.get("MONGO_CONNECTION_ID")
     client = pymongo.MongoClient(CONNECTION_STRING)
     database = client.get_database("Testing")
     collection =  database.get_collection("test_table")
