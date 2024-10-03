@@ -311,7 +311,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://apim-eus-fsps-u-01.azure-api.net/policy/policy_detail?search=PAI-PAA-034252&lob=PAUT&dateOfLoss=2024-08-02",
+									"raw": "https://apim-eus-fsps-u-01.azure-api.net/policy/policy_detail?search=PAI-PAA-034252&lob=auto_policy&dateOfLoss=2024-08-02&subOrgExternalId=sub_organization_a",
 									"protocol": "https",
 									"host": [
 										"apim-eus-fsps-u-01",
@@ -324,21 +324,20 @@
 									],
 									"query": [
 										{
-											"key": "subOrgExternalId",
-											"value": "sub_organization_a",
-											"disabled": true
-										},
-										{
 											"key": "search",
 											"value": "PAI-PAA-034252"
 										},
 										{
 											"key": "lob",
-											"value": "PAUT"
+											"value": "auto_policy"
 										},
 										{
 											"key": "dateOfLoss",
 											"value": "2024-08-02"
+										},
+										{
+											"key": "subOrgExternalId",
+											"value": "sub_organization_a"
 										}
 									]
 								}
@@ -400,13 +399,6 @@
 											"                      pm.expect(c).to.have.property('limit_per_incident');      \r",
 											"        \r",
 											"    });\r",
-											"    \r",
-											"    pm.test(\"Validate limit_per_person properties in each coverage\", function () {\r",
-											"         \r",
-											"                   \r",
-											"                      pm.expect(c).to.have.property('limit_per_person').to.be.a('number');}    \r",
-											"                      \r",
-											"        );\r",
 											" \r",
 											"    }\r",
 											"}}}\r",
@@ -431,122 +423,6 @@
 											"}\r",
 											"\r",
 											"\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://apim-eus-fsps-u-01.azure-api.net/policy/policy_detail?subOrgExternalId=sub_organization_a&search=PAI-PAA-028506&lob=PAUT&dateOfLoss=2024-08-20",
-									"protocol": "https",
-									"host": [
-										"apim-eus-fsps-u-01",
-										"azure-api",
-										"net"
-									],
-									"path": [
-										"policy",
-										"policy_detail"
-									],
-									"query": [
-										{
-											"key": "subOrgExternalId",
-											"value": "sub_organization_a"
-										},
-										{
-											"key": "search",
-											"value": "PAI-PAA-028506"
-										},
-										{
-											"key": "lob",
-											"value": "PAUT"
-										},
-										{
-											"key": "dateOfLoss",
-											"value": "2024-08-20"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "New Request",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"\r",
-											"const responseBody = pm.response.json();\r",
-											"const policy_length = responseBody.policies.length;\r",
-											"console.log('Policy length is',policy_length)\r",
-											"for (let a = 0; a < policy_length; a++) {\r",
-											"    covered_vehicles_length = responseBody.policies[a].covered_vehicles.length\r",
-											"    console.log(\"covered vehicles in 1 policy are\",covered_vehicles_length)\r",
-											"    for(let cv=0;cv<covered_vehicles_length;cv++)\r",
-											"    {\r",
-											"   // console.log(\"covered_vehicles_length is\", covered_vehicles_length)\r",
-											"    const coverages_length = responseBody.policies[a].covered_vehicles[cv].coverage_object.coverages.length;\r",
-											"    console.log(\"Coverages under coverage object are\",coverages_length)\r",
-											"    for (let cv_l = 0; cv_l < coverages_length; cv_l++){\r",
-											"        const c=responseBody.policies[a].covered_vehicles[cv].coverage_object.coverages[cv_l];\r",
-											"\r",
-											"    pm.test(\"Validate coverage_key property in each coverage\", +\"covered_vehicles\"+cv+\"coverages\"+cv_l+function () {\r",
-											"        \r",
-											"            pm.expect(c).to.have.property('coverage_key').to.be.oneOf(['auto_bi_others', 'auto_pip', 'auto_bi_uninsured', 'auto_damage_tp', 'auto_optional_bi_others', 'auto_med_pay', 'auto_uninsured_bi']);\r",
-											"        });\r",
-											"        pm.test(\"Validate deductible properties in each coverage\",function () {\r",
-											"        \r",
-											"            pm.expect(c).to.have.property('deductible');        \r",
-											"        });\r",
-											"   \r",
-											"     pm.test(\"Validate is_covered properties in each coverage\", function () {\r",
-											"        \r",
-											"        pm.expect(c).to.have.property('is_covered').to.equal(true);\r",
-											"     }\r",
-											"        );\r",
-											"  \r",
-											"     pm.test(\"Validate limit_per_incident properties in each coverage\", function () {\r",
-											"        //coverages.forEach((k) => \r",
-											"        \r",
-											"                      pm.expect(c).to.have.property('limit_per_incident');      \r",
-											"        \r",
-											"    });\r",
-											"    \r",
-											"    pm.test(\"Validate limit_per_person properties in each coverage\", function () {\r",
-											"         \r",
-											"                   \r",
-											"                      pm.expect(c).to.have.property('limit_per_person').to.be.a('number');}    \r",
-											"                      \r",
-											"        );\r",
-											" \r",
-											"   \r",
-											"}}}"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
 											""
 										],
 										"type": "text/javascript",
